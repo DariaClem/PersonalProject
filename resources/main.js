@@ -31,70 +31,139 @@ startTime();
 
 window.onload = function () {
     let icons = document.querySelectorAll(".icon");
-    let popUp = document.querySelectorAll("div.project-menu");
 
-    icons[0].onclick = function () {
-        popUp[0].classList.add("windows-visible");
+    let otherPopUps = document.querySelectorAll(`.windows > div`);
+    for (let otherPopUp of otherPopUps) {
+        otherPopUp.onclick = function () {
+            let pops = document.querySelectorAll(`.windows > div`);
+            for (let pop of pops) {
+                pop.style.zIndex = "0";
+            }
+            otherPopUp.style.zIndex = "1";
+        }
     }
 
-    let toolBar = document.querySelectorAll(".toolBar")[0];
-
-    document.onmousedown = function (ev) {
-        let flag = true;
-        let posWindow = popUp[0].getBoundingClientRect();
-        let posWindowX = ev.clientX - posWindow.left;
-        let posWindowY = posWindow.top - ev.clientY;
-        if (ev.target === toolBar && !popUp[0].classList.contains("windows-full")) {
-            popUp[0].style.cursor = "grab";
-            document.onmousemove = function (event) {
-                if (flag) {
-                    if (event.clientX - posWindowX + 700 > window.innerWidth) {
-                        popUp[0].style.left = window.innerWidth - 700 + "px";
-                    } else if (event.clientX - posWindowX < 0) {
-                        popUp[0].style.left = "0";
-                    } else {
-                        popUp[0].style.left = event.clientX - posWindowX + "px";
-                    }
-                    if (event.clientY + posWindowY + 560 > window.innerHeight) {
-                        popUp[0].style.top = window.innerHeight - 560 + "px";
-                    } else if (event.clientY + posWindowY < 0) {
-                        popUp[0].style.top = "0";
-                    } else {
-                        popUp[0].style.top = event.clientY + posWindowY + "px";
-                    }
+    for (let icon of icons) {
+        icon.onclick = function () {
+            let popUp = document.querySelectorAll(`div.${icon.id}`)[0];
+            let found = false;
+            let openUpPages = document.querySelectorAll(".bar-app div");
+            for (let openPage of openUpPages) {
+                if (openPage.innerHTML === icon.id) {
+                    found = true;
+                    break;
                 }
             }
-            document.onmouseup = function () {
-                popUp[0].style.cursor = "default";
-                flag = false;
+            popUp.classList.add("windows-visible");
+            if (!found) {
+                let minWindow = document.createElement("div");
+
+                minWindow.innerHTML = popUp.classList[0];
+                minWindow.style.backgroundColor = "var(--window-bar)";
+                minWindow.style.width = "150px";
+                minWindow.style.height = "100%";
+                minWindow.style.borderRadius = "5px";
+                minWindow.style.display = "flex";
+                minWindow.style.justifyContent = "center";
+                minWindow.style.alignItems = "center";
+                minWindow.style.cursor = "pointer";
+
+                minWindow.onclick = function () {
+                    let currentPage = document.querySelectorAll(`.${popUp.classList[0]}`)[0];
+                    popUp.classList.toggle("windows-visible");
+                    currentPage.classList.toggle("visible");
+
+                    let otherPopUps = document.querySelectorAll(`.windows > div`);
+                    for (let otherPopUp of otherPopUps) {
+                        otherPopUp.style.zIndex = "0";
+                    }
+                    popUp.style.zIndex = "1";
+                }
+
+                let barMenu = document.querySelectorAll(".bar-app")[0];
+                barMenu.appendChild(minWindow);
             }
         }
     }
 
-    let x = document.querySelectorAll(".minimize-max-close div:last-child");
-    let max = document.querySelectorAll(".minimize-max-close div:nth-child(2)");
-    let min = document.querySelectorAll(".minimize-max-close div:first-child");
+    document.onmousedown = function (ev) {
+        let toolBars = document.querySelectorAll(`.toolBar`);
+        for (let toolBar of toolBars) {
+            toolBar.onclick = function (e) {
+                e.stopPropagation();
+                let popUp = toolBar.parentElement;
+                let x = document.querySelectorAll(`.${popUp.classList[0]} .minimize-max-close div:last-child`)[0];
+                let max = document.querySelectorAll(`.${popUp.classList[0]} .minimize-max-close div:nth-child(2)`)[0];
+                let min = document.querySelectorAll(`.${popUp.classList[0]} .minimize-max-close div:first-child`)[0];
 
-    x[0].onclick = function () {
-        popUp[0].classList.remove("windows-visible");
-        popUp[0].classList.remove("windows-full");
+                x.onclick = function () {
+                    popUp.classList.remove("windows-visible");
+                    popUp.classList.remove("windows-full");
+
+                    let openUpPages = document.querySelectorAll(".bar-app div");
+                    for (let openPage of openUpPages) {
+                        if (openPage.innerHTML === popUp.classList[0]) {
+                            openPage.remove();
+                            break;
+                        }
+                    }
+                }
+
+                max.onclick = function () {
+                    popUp.classList.toggle("windows-full");
+                }
+
+                min.onclick = function () {
+                    popUp.classList.remove("windows-full");
+                    popUp.classList.remove("windows-visible");
+
+                    let found = false;
+                    let openUpPages = document.querySelectorAll(".bar-app div");
+                    for (let openPage of openUpPages) {
+                        if (openPage.innerHTML === popUp.classList[0]) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (ev.target === toolBar) {
+                let popUp = toolBar.parentElement;
+                let otherPopUps = document.querySelectorAll(`.windows > div`);
+                for (let otherPopUp of otherPopUps) {
+                    otherPopUp.style.zIndex = "0";
+                }
+                popUp.style.zIndex = "1";
+                if (!popUp.classList.contains("windows-full")) {
+                    let flag = true;
+                    let posWindow = popUp.getBoundingClientRect();
+                    let posWindowX = ev.clientX - posWindow.left;
+                    let posWindowY = posWindow.top - ev.clientY;
+                    popUp.style.cursor = "grab";
+                    document.onmousemove = function (event) {
+                        if (flag) {
+                            if (event.clientX - posWindowX + 700 > window.innerWidth) {
+                                popUp.style.left = window.innerWidth - 700 + "px";
+                            } else if (event.clientX - posWindowX < 0) {
+                                popUp.style.left = "0";
+                            } else {
+                                popUp.style.left = event.clientX - posWindowX + "px";
+                            }
+                            if (event.clientY + posWindowY + 560 > window.innerHeight) {
+                                popUp.style.top = window.innerHeight - 560 + "px";
+                            } else if (event.clientY + posWindowY < 0) {
+                                popUp.style.top = "0";
+                            } else {
+                                popUp.style.top = event.clientY + posWindowY + "px";
+                            }
+                        }
+                    }
+                    document.onmouseup = function () {
+                        popUp.style.cursor = "default";
+                        flag = false;
+                    }
+                }
+            }
+        }
     }
-
-    max[0].onclick = function () {
-        popUp[0].classList.toggle("windows-full");
-    }
-
-    min[0].onclick = function () {
-        console.log("ceva");
-        popUp[0].classList.remove("windows-full");
-        popUp[0].classList.remove("windows-visible");
-        let minWindow = document.createElement("div");
-        minWindow.innerHTML = "document";
-        minWindow.style.backgroundColor = "purple";
-        minWindow.style.width = "30px";
-        minWindow.style.height = "30px";
-        let barMenu = document.querySelectorAll(".bar-menu")[0];
-        barMenu.appendChild(minWindow);
-    }
-
 }

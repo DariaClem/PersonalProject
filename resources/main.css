@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
-
 @font-face {
     font-family: "Pixel";
     src: url("./fonts/pixgamerregular-ovd6a-webfont.woff") format("woff");
@@ -124,9 +122,10 @@ body {
     overflow: hidden;
 }
 
-.project-menu {
+.projects, .about-me, .contact {
     position: absolute;
     background-color: var(--window-bar);
+    box-shadow: 1px 1px 10px 1px var(--window-content-active);
     height: 500px;
     width: 700px;
     border-radius: 15px;
@@ -170,7 +169,7 @@ body {
 }
 
 .windows-full {
-    position: relative;
+    position: absolute;
     top: 0 !important;
     left: 0 !important;
     height: 100%;
@@ -187,7 +186,7 @@ body {
     width: 300px;
 }
 
-.minimize-max-close i, .windows h3 {
+.minimize-max-close i, h3{
     color: var(--main-color-text);
 }
 
@@ -291,11 +290,13 @@ i {
 /* Fundalul scrollbar-ului */
 ::-webkit-scrollbar-track {
     background-color: var(--main-color-barmenu);
+    border-radius: 0 0 15px 0;
 }
 
 /* Butonul de "thumb" al scrollbar-ului */
 ::-webkit-scrollbar-thumb {
     background-color: var(--window-text-light);
+    border-radius: 15px;
 }
 
 /* Stilul de hover pentru "thumb" */
@@ -322,4 +323,8 @@ i {
     display: none;
 }
 
-
+.bar-app {
+    display: flex;
+    flex-flow: row;
+    gap: 10px;
+}
