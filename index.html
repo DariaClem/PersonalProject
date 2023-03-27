@@ -6,53 +6,246 @@
     <link href="resources/main.css" type="text/css" rel="stylesheet">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
-
-
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
+    <link rel='stylesheet'
+          href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
 </head>
 <body>
 <div class="desktop">
     <div>
-        <figure class="f-col-center icon">
+        <figure class="f-col-center icon" id="project">
             <img class="project-img" src="resources/images/open-folder.png" alt="projects">
             <figcaption>Projects</figcaption>
         </figure>
     </div>
     <div>
-        <figure class="f-col-center icon">
-            <img class="project-img" src="resources/images/girl%20(1).png" alt="About me">
-            <figcaption>About me</figcaption>
+        <figure class="f-col-center icon" id="about-me">
+            <img class="project-img" src="resources/images/girl%20(1).png" alt="about-me">
+            <figcaption>AboutMe.txt</figcaption>
         </figure>
     </div>
     <div>
-        <figure class="f-col-center icon">
-            <img class="project-img" src="resources/images/communicate.png" alt="About me">
-            <figcaption>Contact</figcaption>
+        <figure class="f-col-center icon" id="contact">
+            <img class="project-img" src="resources/images/communicate.png" alt="contact">
+            <figcaption>Contact.txt</figcaption>
         </figure>
     </div>
     <div class="windows f-col-center">
-        <div class="project-container">
-            <div class="project-menu">
-                <div class="f-row-sb toolBar">
-                    <div class="back-next">
-                        <i class="fi fi-rr-arrow-circle-left"></i>
-                        <i class="fi fi-rr-arrow-circle-right"></i>
+        <div class="project-menu">
+            <div class="f-row-sb toolBar">
+                <div class="back-next f-row-sb">
+                    <i class="fi fi-rr-arrow-circle-left"></i>
+                    <i class="fi fi-rr-arrow-circle-right"></i>
+                </div>
+                <div class="name-page">
+                    <h3>Projects</h3>
+                </div>
+                <div class="minimize-max-close f-row-sb">
+                    <div>
+                        <img src="resources/images/window-minimize.png" alt="minimize">
                     </div>
-                    <div class="name-page">
-                        <h3>Projects</h3>
+                    <div>
+                        <i class="fi fi-rr-window-alt"></i>
                     </div>
-                    <div class="minimize-max-close f-row-sb">
+                    <div>
+                        <i class="fi fi-sr-cross"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="side-menu f-col">
+                    <div id="computer-science-folder">
+                        <i class="fi fi-rr-folder"></i> <a>Computer Science</a></div>
+                    <div id="painting-folder">
+                        <i class="fi fi-rr-folder"></i> <a>Painting</a>
+                    </div>
+                    <div id="blender-folder">
+                        <i class="fi fi-rr-folder"></i> <a>Blender</a>
+                    </div>
+                </div>
+                <div class="folder-files">
+                    <div class="folder-data">
+                        <img class="computer-science-img" src="resources/images/web-programming.png"
+                             alt="Computer Science">
                         <div>
-                            <img src="resources/images/window-minimize.png" alt="minimize">
+                            <a>Computer Science</a>
+                            <br>
+                            <small>7 elements</small>
                         </div>
+                    </div>
+                    <div class="folder-data">
+                        <img class="painting-img" src="resources/images/canvas.png"
+                             alt="Painting">
                         <div>
-                            <i class="fi fi-rr-window-alt"></i>
+                            <a>Painting</a>
+                            <br>
+                            <small>5 elements</small>
                         </div>
+                    </div>
+                    <div class="folder-data">
+                        <img class="blender-img" src="resources/images/blender.png"
+                             alt="Blender">
                         <div>
-                            <i class="fi fi-sr-cross"></i>
+                            <a>Blender</a>
+                            <br>
+                            <small>6 elements</small>
                         </div>
                     </div>
                 </div>
-                <div class="window-content">
+                <div class="computer-science-files">
+                    <h2>Computer science projects</h2>
+                    <details>
+                        <summary>Online shop</summary>
+                        <div>
+                            <p>I built this project with ASP.NET Core MVC, utilizing dependency injection and a
+                                Code-First approach to design the database schema using Entity Framework Core. It has an
+                                authentication system to limit access to administrative features. I utilized my CSS, JS,
+                                and Blender skills to enhance its user interface.</p>
+                            <br>
+                            <a href="https://github.com/DariaClem/Online-Shop-Vibin-Coffee" target="_blank">Github
+                                link</a>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Managment of a school</summary>
+                        <div>
+                            <p>This is a PL/SQL project focused on managing a school, which showcases my skills in using
+                                advanced database technologies. It includes all the tables from the SQL version, such as
+                                student, teacher, class, subject, scholarship, account, bank, competition, project, and
+                                grades. In addition, I utilized functions, procedures, cursors, complex data types,
+                                packages, and LMD and LDD triggers to automate various administrative tasks. This
+                                project demonstrates my ability to work with complex PL/SQL code and develop robust and
+                                scalable database applications.</p>
+                            <br>
+                            <a href="https://github.com/DariaClem/Management-of-a-school-PL-SQL" target="_blank">Github
+                                link</a>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Resistance coordination in the World War II</summary>
+                        <div>
+                            <p>For my C++ project, I incorporated object-oriented programming concepts such as
+                                upcasting, downcasting, virtual functions, and operator overloading to develop a story
+                                about the French Resistance during World War II. By utilizing these techniques, I was
+                                able to create a well-structured project that accurately conveyed the spirit of the
+                                historical event. The use of object-oriented programming allowed for greater flexibility
+                                and organization in my code, making it easier to maintain and modify as needed.</p>
+                            <br>
+                            <a href="https://github.com/DariaClem/Resistance-World-War-II-Part-1" target="_blank">Github
+                                link - part
+                                1</a> <br>
+                            <a href="https://github.com/DariaClem/Resistance-World-War-II-Part-2" target="_blank">Github
+                                link - part
+                                2</a>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Lambda-NFA to DFA converter</summary>
+                        <div>
+                            <p>I developed a Lambda-NFA to DFA converter and visualizer project in Python 3. This
+                                project demonstrates my ability to work with abstract concepts and algorithms, and to
+                                create visual representations of data to help improve understanding.</p>
+                            <br>
+                            <a href="https://github.com/DariaClem/Lambda-NFA-to-DFA-visualizer" target="_blank">Github
+                                link</a>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Art project</summary>
+                        <div>
+                            <p>I created an art project using HTML, CSS, and JavaScript for client-side and Node.js for
+                                server-side. The project features a simple authentication system and uses the ejs
+                                template engine for dynamic content rendering.</p>
+                            <br>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Dropbox Shell</summary>
+                        <div>
+                            <p>The project is a shell that exposes the functionality of the dbxcli utility (ex. cp, mv,
+                                mkdir, rm) and connects with the local file system. I have enhanced the functionality of
+                                the dbxcli by adding the ability to upload and download entire folders, not just
+                                individual files. Additionally, I have implemented the "cd" command to make navigation
+                                through remote folders easier, a functionality that was not present in the original
+                                dbxcli.</p>
+                            <br>
+                            <a href="https://github.com/DariaClem/Dropbox-Shell" target="_blank">Github link</a>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>Sudoku Solver</summary>
+                        <div>
+                            <p>I created a Sudoku solver project in Assembly x86 AT&T syntax. This project showcases my
+                                ability to work with low-level programming languages.</p>
+                            <br>
+                            <a href="https://github.com/DariaClem/Sudoku" target="_blank">Github link</a>
+                        </div>
+                    </details>
+                    <details>
+                        <summary>JavaScript mini-projects</summary>
+                        <div>
+                            <p>I have completed several mini-projects in JavaScript while taking the Frontend Core
+                                course on JetBrains Academy, an online learning platform. This experience helped me to
+                                become more familiar with the language.
+                                <br>
+                                <br>
+                                Although the projects were small, they provided a great way to apply what I had
+                                learned in the course and to gain practical experience working with JavaScript.</p>
+                            <br>
+                            <a href="https://github.com/DariaClem/Carnival-Gift-Shop" target="_blank">Github link -
+                                Carnival Gift Shop</a><br>
+                            <a href="https://github.com/DariaClem/Coffee-Machine" target="_blank">Github link - Coffee
+                                Machine</a><br>
+                            <a href="https://github.com/DariaClem/Case-Converter" target="_blank">Github link - Case
+                                converter</a><br>
+                            <a href="https://github.com/DariaClem/Simple-Currency-Converter" target="_blank">Github link
+                                - Simple currency converter</a>
+                        </div>
+                    </details>
+                </div>
+                <div class="painting-files">
+                    <h2>Art projects</h2>
+                    <p>Drawing has been a significant passion of mine since I was young. It started with simple doodles
+                        and progressed into more complex works of art that capture my emotions and mood. I have always
+                        found joy in expressing myself through art, and it has become an essential part of my life.
+                        <br>
+                        <br>
+                        During my formative years, I was fortunate enough to participate in a painting workshop in my
+                        hometown. This experience helped me hone my skills and learn what it's like to work in a
+                        professional studio. I was able to work with other artists and share techniques and
+                        ideas.
+                        <br>
+                        <br>
+                        While I did not choose to pursue a career in art, painting remains an important hobby of mine.
+                        During my time in high school, I volunteered for the school magazine and created personalized
+                        drawings for various themes. Working with a team of people who held different roles and
+                        responsibilities was an enlightening experience. The hard work we put into the magazine paid off
+                        when we discovered that it was a national contest winner, which was a significant achievement
+                        for all of us.
+                        <br>
+                        <br>
+                        In summary, drawing and painting have been a constant source of joy and inspiration in my life.
+                        Although I did not choose to pursue a career in art, I will always have a deep appreciation for
+                        the creativity and passion that it requires.</p>
+                    <img src="resources/images/2_tineri-1-removebg-preview.png" alt="teens">
+                    <img src="resources/images/Pergament-clepsidra-1-removebg-preview.png" alt="time">
+                </div>
+                <div class="blender-files">
+                    <h2>Blender projects</h2>
+                    <p>During high school, I stumbled upon 3D design by accident. I was completely fascinated when I
+                        discovered the Blender application and realized how many things you can create with it. I
+                        started with the tutorial, namely "Donut" made by Blender Guru. This represents the cornerstone
+                        for any 3D designer in Blender.
+                        <br>
+                        <br>
+                        I quickly became consumed by the frenzy of creation and completed various projects that I
+                        reproduced with the help of tutorials. Later, I tried to create my own works. Although I have a
+                        long way to go, I can say that I am very excited about what the future holds for me and I can't
+                        wait to create new works.
+                        <br>
+                        <br>
+                        In a few words, I can say that 3D design combines two of my passions: computer science and
+                        drawing, passions that I have described earlier.</p>
                 </div>
             </div>
         </div>

@@ -39,13 +39,36 @@ window.onload = function () {
 
     let toolBar = document.querySelectorAll(".toolBar")[0];
 
-    popUp[0].onmousedown = function (event) {
-        if (toolBar === event.target)
-            popUp[0].onmousemove = function () {
-                popUp[0].style.left = "0";
-                console.log(popUp[0].style.left);
-
+    document.onmousedown = function (ev) {
+        let flag = true;
+        let posWindow = popUp[0].getBoundingClientRect();
+        let posWindowX = ev.clientX - posWindow.left;
+        let posWindowY = posWindow.top - ev.clientY;
+        if (ev.target === toolBar && !popUp[0].classList.contains("windows-full")) {
+            popUp[0].style.cursor = "grab";
+            document.onmousemove = function (event) {
+                if (flag) {
+                    if (event.clientX - posWindowX + 700 > window.innerWidth) {
+                        popUp[0].style.left = window.innerWidth - 700 + "px";
+                    } else if (event.clientX - posWindowX < 0) {
+                        popUp[0].style.left = "0";
+                    } else {
+                        popUp[0].style.left = event.clientX - posWindowX + "px";
+                    }
+                    if (event.clientY + posWindowY + 560 > window.innerHeight) {
+                        popUp[0].style.top = window.innerHeight - 560 + "px";
+                    } else if (event.clientY + posWindowY < 0) {
+                        popUp[0].style.top = "0";
+                    } else {
+                        popUp[0].style.top = event.clientY + posWindowY + "px";
+                    }
+                }
             }
+            document.onmouseup = function () {
+                popUp[0].style.cursor = "default";
+                flag = false;
+            }
+        }
     }
 
     let x = document.querySelectorAll(".minimize-max-close div:last-child");
@@ -73,6 +96,5 @@ window.onload = function () {
         let barMenu = document.querySelectorAll(".bar-menu")[0];
         barMenu.appendChild(minWindow);
     }
-
 
 }
