@@ -27,61 +27,89 @@ function startTime() {
     }, 250);
 }
 
+function foreground() {
+    let otherPopUps = document.querySelectorAll(`.windows > div`);
+    for (let otherPopUp of otherPopUps) {
+        otherPopUp.onclick = function (e) {
+            if (otherPopUp.style.zIndex !== "3") {
+                e.stopPropagation();
+                let pops = document.querySelectorAll(`.windows > div`);
+                for (let pop of pops) {
+                    if (pop.classList.contains("windows-visible")) {
+                        pop.style.zIndex = `${pop.style.zIndex - 1 >= 0 ? pop.style.zIndex - 1 : 0}`;
+                    }
+                }
+                otherPopUp.style.zIndex = "3";
+            }
+        }
+    }
+}
+
 startTime();
 
 window.onload = function () {
     let icons = document.querySelectorAll(".icon");
 
-    let otherPopUps = document.querySelectorAll(`.windows > div`);
-    for (let otherPopUp of otherPopUps) {
-        otherPopUp.onclick = function () {
-            let pops = document.querySelectorAll(`.windows > div`);
-            for (let pop of pops) {
-                pop.style.zIndex = "0";
-            }
-            otherPopUp.style.zIndex = "1";
-        }
-    }
+    foreground();
 
     for (let icon of icons) {
-        icon.onclick = function () {
-            let popUp = document.querySelectorAll(`div.${icon.id}`)[0];
-            let found = false;
-            let openUpPages = document.querySelectorAll(".bar-app div");
-            for (let openPage of openUpPages) {
-                if (openPage.innerHTML === icon.id) {
-                    found = true;
-                    break;
-                }
-            }
-            popUp.classList.add("windows-visible");
-            if (!found) {
-                let minWindow = document.createElement("div");
+        icon.onclick = function (event) {
+            if (event.detail === 2) {
 
-                minWindow.innerHTML = popUp.classList[0];
-                minWindow.style.backgroundColor = "var(--window-bar)";
-                minWindow.style.width = "150px";
-                minWindow.style.height = "100%";
-                minWindow.style.borderRadius = "5px";
-                minWindow.style.display = "flex";
-                minWindow.style.justifyContent = "center";
-                minWindow.style.alignItems = "center";
-                minWindow.style.cursor = "pointer";
-
-                minWindow.onclick = function () {
-                    let currentPage = document.querySelectorAll(`.${popUp.classList[0]}`)[0];
-                    popUp.classList.toggle("windows-visible");
-                    currentPage.classList.toggle("visible");
-
-                    let otherPopUps = document.querySelectorAll(`.windows > div`);
-                    for (let otherPopUp of otherPopUps) {
-                        otherPopUp.style.zIndex = "0";
+                let popUp = document.querySelectorAll(`div.${icon.id}`)[0];
+                let found = false;
+                let openUpPages = document.querySelectorAll(".bar-app div");
+                for (let openPage of openUpPages) {
+                    if (openPage.innerHTML === icon.id) {
+                        found = true;
+                        break;
                     }
-                    popUp.style.zIndex = "1";
                 }
 
-                let barMenu = document.querySelectorAll(".bar-app")[0];
-                barMenu.appendChild(minWindow);
+                if (!popUp.classList.contains("windows-visible")) {
+                    let pops = document.querySelectorAll(`.windows > div`);
+                    for (let pop of pops) {
+                        if (pop.classList.contains("windows-visible")) {
+                            pop.style.zIndex = `${pop.style.zIndex - 1 >= 0 ? pop.style.zIndex - 1 : 0}`;
+                        }
+                    }
+                    popUp.style.zIndex = "3";
+                    popUp.classList.add("windows-visible");
+                }
+
+                if (!found) {
+                    let minWindow = document.createElement("div");
+
+                    minWindow.innerHTML = popUp.classList[0];
+                    minWindow.style.backgroundColor = "var(--window-bar)";
+                    minWindow.style.width = "150px";
+                    minWindow.style.height = "100%";
+                    minWindow.style.borderRadius = "5px";
+                    minWindow.style.display = "flex";
+                    minWindow.style.justifyContent = "center";
+                    minWindow.style.alignItems = "center";
+                    minWindow.style.cursor = "pointer";
+                    minWindow.style.zIndex = "3";
+
+                    minWindow.onclick = function () {
+                        let currentPage = document.querySelectorAll(`.${popUp.classList[0]}`)[0];
+                        popUp.classList.toggle("windows-visible");
+                        currentPage.classList.toggle("visible");
+
+                        let otherPopUps = document.querySelectorAll(`.windows > div`);
+                        if (popUp.classList.contains("windows-visible")) {
+                            for (let otherPopUp of otherPopUps) {
+                                if (otherPopUp.classList.contains("windows-visible")) {
+                                    otherPopUp.style.zIndex = `${otherPopUp.style.zIndex - 1 >= 0 ? otherPopUp.style.zIndex - 1 : 0}`;
+                                }
+                            }
+                            popUp.style.zIndex = "3";
+                        }
+                    }
+
+                    let barMenu = document.querySelectorAll(".bar-app")[0];
+                    barMenu.appendChild(minWindow);
+                }
             }
         }
     }
@@ -89,51 +117,55 @@ window.onload = function () {
     document.onmousedown = function (ev) {
         let toolBars = document.querySelectorAll(`.toolBar`);
         for (let toolBar of toolBars) {
-            toolBar.onclick = function (e) {
-                e.stopPropagation();
-                let popUp = toolBar.parentElement;
-                let x = document.querySelectorAll(`.${popUp.classList[0]} .minimize-max-close div:last-child`)[0];
-                let max = document.querySelectorAll(`.${popUp.classList[0]} .minimize-max-close div:nth-child(2)`)[0];
-                let min = document.querySelectorAll(`.${popUp.classList[0]} .minimize-max-close div:first-child`)[0];
+            let popUp = toolBar.parentElement;
+            let x = document.querySelectorAll(`.${popUp.classList[0]} .minimize-max-close div:last-child`)[0];
+            let max = document.querySelectorAll(`.${popUp.classList[0]} .minimize-max-close div:nth-child(2)`)[0];
+            let min = document.querySelectorAll(`.${popUp.classList[0]} .minimize-max-close div:first-child`)[0];
 
-                x.onclick = function () {
-                    popUp.classList.remove("windows-visible");
-                    popUp.classList.remove("windows-full");
+            x.onclick = function () {
+                popUp.classList.remove("windows-visible");
+                popUp.classList.remove("windows-full");
 
-                    let openUpPages = document.querySelectorAll(".bar-app div");
-                    for (let openPage of openUpPages) {
-                        if (openPage.innerHTML === popUp.classList[0]) {
-                            openPage.remove();
-                            break;
-                        }
-                    }
-                }
-
-                max.onclick = function () {
-                    popUp.classList.toggle("windows-full");
-                }
-
-                min.onclick = function () {
-                    popUp.classList.remove("windows-full");
-                    popUp.classList.remove("windows-visible");
-
-                    let found = false;
-                    let openUpPages = document.querySelectorAll(".bar-app div");
-                    for (let openPage of openUpPages) {
-                        if (openPage.innerHTML === popUp.classList[0]) {
-                            found = true;
-                            break;
-                        }
+                let openUpPages = document.querySelectorAll(".bar-app div");
+                for (let openPage of openUpPages) {
+                    if (openPage.innerHTML === popUp.classList[0]) {
+                        openPage.remove();
+                        break;
                     }
                 }
             }
+
+            max.onclick = function () {
+                popUp.classList.toggle("windows-full");
+            }
+
+            min.onclick = function (ev) {
+                ev.stopPropagation();
+
+                popUp.classList.remove("windows-full");
+                popUp.classList.remove("windows-visible");
+
+                let found = false;
+                let openUpPages = document.querySelectorAll(".bar-app div");
+                for (let openPage of openUpPages) {
+                    if (openPage.innerHTML === popUp.classList[0]) {
+                        found = true;
+                        break;
+                    }
+                }
+            }
+
             if (ev.target === toolBar) {
                 let popUp = toolBar.parentElement;
                 let otherPopUps = document.querySelectorAll(`.windows > div`);
-                for (let otherPopUp of otherPopUps) {
-                    otherPopUp.style.zIndex = "0";
+                if (popUp.style.zIndex !== "3") {
+                    for (let otherPopUp of otherPopUps) {
+                        if (otherPopUp.classList.contains("windows-visible")) {
+                            otherPopUp.style.zIndex = `${otherPopUp.style.zIndex - 1 >= 0 ? otherPopUp.style.zIndex - 1 : 0}`;
+                        }
+                    }
+                    popUp.style.zIndex = "3";
                 }
-                popUp.style.zIndex = "1";
                 if (!popUp.classList.contains("windows-full")) {
                     let flag = true;
                     let posWindow = popUp.getBoundingClientRect();
