@@ -55,12 +55,12 @@ window.onload = function () {
     for (let icon of icons) {
         icon.onclick = function (event) {
             if (event.detail === 2) {
-
                 let popUp = document.querySelectorAll(`div.${icon.id}`)[0];
                 let found = false;
                 let openUpPages = document.querySelectorAll(".bar-app div");
                 for (let openPage of openUpPages) {
-                    if (openPage.innerHTML === icon.id) {
+                    if (openPage.title === icon.id) {
+                        openPage.classList.add("darker-background");
                         found = true;
                         break;
                     }
@@ -80,21 +80,24 @@ window.onload = function () {
                 if (!found) {
                     let minWindow = document.createElement("div");
 
-                    minWindow.innerHTML = popUp.classList[0];
-                    minWindow.style.backgroundColor = "var(--window-bar)";
-                    minWindow.style.width = "150px";
-                    minWindow.style.height = "100%";
+                    minWindow.title = popUp.classList[0];
                     minWindow.style.borderRadius = "5px";
+                    minWindow.style.width = "60px";
+                    minWindow.style.background = "rgba(121, 134, 168, 0.22)";
+                    minWindow.style.borderBottom = "4px solid transparent";
+                    minWindow.style.height = "100%";
                     minWindow.style.display = "flex";
                     minWindow.style.justifyContent = "center";
                     minWindow.style.alignItems = "center";
                     minWindow.style.cursor = "pointer";
                     minWindow.style.zIndex = "3";
+                    minWindow.classList.add("darker-background");
 
                     minWindow.onclick = function () {
                         let currentPage = document.querySelectorAll(`.${popUp.classList[0]}`)[0];
                         popUp.classList.toggle("windows-visible");
                         currentPage.classList.toggle("visible");
+                        minWindow.classList.toggle("darker-background");
 
                         let otherPopUps = document.querySelectorAll(`.windows > div`);
                         if (popUp.classList.contains("windows-visible")) {
@@ -107,6 +110,11 @@ window.onload = function () {
                         }
                     }
 
+                    let image = document.createElement("img");
+                    image.src = popUp.classList[0] === "projects" ? "/resources/images/open-folder.png" : (popUp.classList[0] === "about-me" ? "resources/images/girl%20(1).png" : "resources/images/communicate.png");
+                    image.style.width = "45px";
+                    minWindow.appendChild(image);
+
                     let barMenu = document.querySelectorAll(".bar-app")[0];
                     barMenu.appendChild(minWindow);
                 }
@@ -114,6 +122,7 @@ window.onload = function () {
         }
     }
 
+    let onToolBar = false;
     document.onmousedown = function (ev) {
         let toolBars = document.querySelectorAll(`.toolBar`);
         for (let toolBar of toolBars) {
@@ -128,7 +137,7 @@ window.onload = function () {
 
                 let openUpPages = document.querySelectorAll(".bar-app div");
                 for (let openPage of openUpPages) {
-                    if (openPage.innerHTML === popUp.classList[0]) {
+                    if (openPage.title === popUp.classList[0]) {
                         openPage.remove();
                         break;
                     }
@@ -148,7 +157,8 @@ window.onload = function () {
                 let found = false;
                 let openUpPages = document.querySelectorAll(".bar-app div");
                 for (let openPage of openUpPages) {
-                    if (openPage.innerHTML === popUp.classList[0]) {
+                    if (openPage.title === popUp.classList[0]) {
+                        openPage.classList.remove("darker-background");
                         found = true;
                         break;
                     }
@@ -156,6 +166,7 @@ window.onload = function () {
             }
 
             if (ev.target === toolBar) {
+                onToolBar = true;
                 let popUp = toolBar.parentElement;
                 let otherPopUps = document.querySelectorAll(`.windows > div`);
                 if (popUp.style.zIndex !== "3") {
@@ -171,18 +182,20 @@ window.onload = function () {
                     let posWindow = popUp.getBoundingClientRect();
                     let posWindowX = ev.clientX - posWindow.left;
                     let posWindowY = posWindow.top - ev.clientY;
+
                     popUp.style.cursor = "grab";
+
                     document.onmousemove = function (event) {
                         if (flag) {
-                            if (event.clientX - posWindowX + 700 > window.innerWidth) {
-                                popUp.style.left = window.innerWidth - 700 + "px";
+                            if (event.clientX - posWindowX + posWindow.width > window.innerWidth) {
+                                popUp.style.left = window.innerWidth - posWindow.width + "px";
                             } else if (event.clientX - posWindowX < 0) {
                                 popUp.style.left = "0";
                             } else {
                                 popUp.style.left = event.clientX - posWindowX + "px";
                             }
-                            if (event.clientY + posWindowY + 560 > window.innerHeight) {
-                                popUp.style.top = window.innerHeight - 560 + "px";
+                            if (event.clientY + posWindowY + posWindow.height + 60 > window.innerHeight) {
+                                popUp.style.top = window.innerHeight - posWindow.height - 60 + "px";
                             } else if (event.clientY + posWindowY < 0) {
                                 popUp.style.top = "0";
                             } else {
@@ -190,12 +203,103 @@ window.onload = function () {
                             }
                         }
                     }
+
                     document.onmouseup = function () {
-                        popUp.style.cursor = "default";
-                        flag = false;
+                        if (onToolBar) {
+                            popUp.style.cursor = "default";
+                            flag = false;
+                        }
                     }
                 }
             }
         }
     }
+
+    let inputs = document.querySelectorAll("input");
+    for (let input of inputs) {
+        input.onclick = function () {
+            navigator.clipboard.writeText(input.value)
+                .then(() => {
+                    let success = document.createElement("div");
+                    success.innerHTML = `The ${input.id === "email" ? "email" : `${input.id} link`} has been copied to the clipboard!`;
+                    success.style.padding = "15px";
+                    success.style.background = " green";
+                    success.style.borderRadius = "10px";
+                    success.style.position = "absolute";
+                    success.style.bottom = "10%";
+                    success.style.color = "white";
+                    success.classList.add("anim");
+
+                    let contact = document.querySelectorAll(".contact-form")[0];
+                    contact.appendChild(success);
+                    setTimeout(function () {
+                        contact.removeChild(success);
+                    }, 1500);
+                })
+                .catch(err => {
+                    console.error('Error copying the text to the clipboard:', err);
+                });
+        }
+    }
+
+    let projects = document.querySelectorAll(".computer-science, .blender, .painting");
+    let folderFiles = document.querySelectorAll(".folder-files")[0];
+    let openProjects = document.querySelectorAll("#computer-science-files, #blender-files, #painting-files");
+
+    let leftArrow = document.getElementsByClassName("fi-rr-arrow-circle-left")[0];
+    let rightArrow = document.getElementsByClassName("fi-rr-arrow-circle-right")[0];
+
+    let history = null;
+    for (let project of projects) {
+        project.onclick = function () {
+            history = folderFiles;
+
+            for (let openProj of openProjects) {
+                openProj.classList.remove("show");
+            }
+
+            let newProject = document.getElementById(`${project.classList[0]}-files`);
+            folderFiles.style.display = "none";
+            newProject.classList.add("show");
+
+            leftArrow.style.color = "var(--main-color-text)";
+            leftArrow.style.cursor = "pointer";
+            rightArrow.style.color = "var(--main-color-text-unavailable)";
+            rightArrow.style.cursor = "default";
+        }
+    }
+
+    leftArrow.onclick = function () {
+        if (history !== null) {
+            for (let openProj of openProjects) {
+                if (openProj.classList.contains("show"))
+                    history = openProj;
+                openProj.classList.remove("show");
+            }
+            leftArrow.style.color = "var(--main-color-text-unavailable)";
+            leftArrow.style.cursor = "default";
+            rightArrow.style.color = "var(--main-color-text)";
+            rightArrow.style.cursor = "pointer";
+
+            folderFiles.style.display = "block";
+        }
+    }
+
+    rightArrow.onclick = function () {
+        if (history !== null) {
+            leftArrow.style.color = "var(--main-color-text)";
+            leftArrow.style.cursor = "pointer";
+            rightArrow.style.color = "var(--main-color-text-unavailable)";
+            rightArrow.style.cursor = "default";
+
+            folderFiles.style.display = "none";
+
+            for (let openProj of openProjects) {
+                if (openProj === history)
+                    openProj.classList.add("show");
+            }
+            history = folderFiles;
+        }
+    }
+
 }

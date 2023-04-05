@@ -10,6 +10,7 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    --main-background: #e3c9c6;
     --main-color-desktop: #0e1b3b;
     --main-color-barmenu: #7986a8;
     --main-color-hover: rgba(121, 134, 168, 0.1);
@@ -22,10 +23,11 @@
     --window-content-hover: #3e425e;
     --window-content-active: #31344d;
     --window-text-light: rgba(236, 175, 174, 255);
+
 }
 
 body {
-    background-color: #e3c9c6;
+    background-color: var(--main-background);
     /*background-color: hsla(218, 74%, 16%, 1);*/
     /*background-image: radial-gradient(at 0% 100%, hsla(192, 100%, 31%, 0.1) 0px, transparent 50%),*/
     /*radial-gradient(at 37% 100%, hsla(321, 71%, 31%, 0.5) 0px, transparent 50%),*/
@@ -40,6 +42,17 @@ body {
     position: relative;
 }
 
+.background {
+    color: var(--main-color-barmenu);
+    font-size: 100px;
+    user-select: none;
+    opacity: 40%;
+    position: absolute;
+    top: calc(50% - 60px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .bar-menu {
     position: fixed;
     left: 0;
@@ -51,10 +64,41 @@ body {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
+.bar-app div:hover {
+    background: rgba(121, 134, 168, 0.6) !important;
+}
+
+.bar-app div:active {
+    background: rgba(121, 134, 168, 0.8) !important;
+}
+
+.bar-app div {
+    user-select: none;
+}
+
+.darker-background {
+    background: rgba(121, 134, 168, 0.6) !important;
+    border-bottom: 4px solid rgba(49, 52, 77, 0.6) !important;
+}
+
+div.darker-background:hover {
+    background: rgba(121, 134, 168, 0.8) !important;
+}
+
+div.darker-background:active {
+    background: rgba(121, 134, 168, 1) !important;
+}
+
 .f-col-center {
     display: flex;
     flex-flow: column;
     justify-content: center;
+}
+
+.f-col-middle {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 
 .f-row-sb {
@@ -73,8 +117,17 @@ body {
     flex-flow: column;
 }
 
+.f-row {
+    display: flex;
+    flex-flow: row;
+}
+
 .bar-menu {
     padding: 5px 15px;
+}
+
+.icons {
+    width: 97px;
 }
 
 .icon {
@@ -129,8 +182,14 @@ body {
     box-shadow: 1px 2px 10px var(--main-color-desktop);
     height: 500px;
     width: 700px;
+    /*min-height: 500px;*/
+    /*min-width: 700px;*/
     border-radius: 15px;
     z-index: 3;
+    /*resize: both;*/
+    /*overflow: hidden;*/
+    /*max-width: 100%;*/
+    /*max-height: 100%;*/
 }
 
 .toolBar {
@@ -148,7 +207,7 @@ body {
 
 .side-menu {
     background-color: var(--main-color-barmenu);
-    width: 200px;
+    width: 270px;
     height: 100%;
     padding: 15px;
     border-radius: 0 0 0 15px;
@@ -159,7 +218,6 @@ body {
     width: 100%;
     padding: 15px;
     border-radius: 0 0 15px 0;
-    display: none;
 }
 
 .side-menu:has(i, a), .window-content:has(i,a) {
@@ -174,9 +232,10 @@ body {
     position: absolute;
     top: 0 !important;
     left: 0 !important;
-    height: 100%;
-    width: 100%;
+    height: 100% !important;
+    width: 100% !important;
     border-radius: 0;
+    resize: none;
 }
 
 .windows-full .window-content {
@@ -204,7 +263,7 @@ body {
     gap: 20px;
 }
 
-.minimize-max-close div, .back-next i {
+.minimize-max-close div {
     display: inline;
     cursor: pointer;
 }
@@ -248,39 +307,40 @@ i {
     color: var(--main-color-text-unavailable);
 }
 
-.computer-science-files {
+#computer-science-files {
     width: 100%;
     padding: 15px;
     border-radius: 0 0 15px 0;
     overflow-y: auto;
+    display: none;
 }
 
-.computer-science-files summary {
+#computer-science-files summary {
     cursor: pointer;
 }
 
-.computer-science-files h2 {
+#computer-science-files h2 {
     letter-spacing: 2px;
 }
 
-.computer-science-files a, .presentations a {
+#computer-science-files a {
     color: var(--window-bar);
 }
 
-.computer-science-files a:active, .presentations a:active {
+#computer-science-files a:active, .presentations a:active {
     color: var(--window-bar-active);
 }
 
-.computer-science-files details {
+#computer-science-files details {
     padding: 10px;
     width: 100%;
 }
 
-.computer-science-files details div {
+#computer-science-files details div {
     padding-right: 10px;
 }
 
-.computer-science-files details div img {
+#computer-science-files details div img {
     max-width: 100%;
 }
 
@@ -314,14 +374,14 @@ i {
     width: 30px;
 }
 
-.painting-files {
+#painting-files {
     width: 100%;
     overflow-y: auto;
     padding: 15px;
     display: none;
 }
 
-.blender-files {
+#blender-files {
     width: 100%;
     overflow-y: auto;
     padding: 15px;
@@ -348,4 +408,53 @@ i {
 
 .presentations p {
     text-align: justify;
+}
+
+/* Contact form */
+.contact-form {
+    width: 100%;
+    height: calc(100% - 50px);
+}
+
+.presentations a {
+    color: var(--window-text-light);
+    text-decoration: none;
+}
+
+input {
+    padding: 8px;
+    width: 450px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.presentations a:hover {
+    color: var(--window-bar);
+}
+
+.computer-science, .painting, .blender {
+    user-select: none;
+}
+
+.anim {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: moveup 0.10s linear forwards;
+}
+
+@keyframes moveup {
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.name-page {
+    pointer-events: none;
+}
+
+.show {
+    display: block !important;
 }

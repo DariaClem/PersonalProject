@@ -10,5 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="uicons-solid-rounded" level="application" />
     <orderEntry type="library" name="uicons-thin-straight" level="application" />
+    <orderEntry type="library" name="uicons-brands" level="application" />
   </component>
 </module>

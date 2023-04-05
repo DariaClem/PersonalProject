@@ -7,11 +7,14 @@
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-thin-straight/css/uicons-thin-straight.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-brands/css/uicons-brands.css'>
     <link rel='stylesheet'
           href='https://cdn-uicons.flaticon.com/uicons-regular-straight/css/uicons-regular-straight.css'>
 </head>
 <body>
 <div class="desktop">
+    <h1 class="background">__Daria Clem__</h1>
+    <div class="icons">
     <div>
         <figure class="f-col-center icon" id="projects">
             <img class="project-img" src="resources/images/open-folder.png" alt="projects">
@@ -29,6 +32,7 @@
             <img class="project-img" src="resources/images/communicate.png" alt="contact">
             <figcaption>Contact.txt</figcaption>
         </figure>
+    </div>
     </div>
     <div class="windows f-col-center">
         <div class="projects">
@@ -54,17 +58,17 @@
             </div>
             <div class="window-content">
                 <div class="side-menu f-col">
-                    <div id="computer-science-folder">
+                    <div id="computer-science-folder" class="computer-science">
                         <i class="fi fi-rr-folder"></i> <a>Computer Science</a></div>
-                    <div id="painting-folder">
+                    <div id="painting-folder" class="painting">
                         <i class="fi fi-rr-folder"></i> <a>Painting</a>
                     </div>
-                    <div id="blender-folder">
+                    <div id="blender-folder" class="blender">
                         <i class="fi fi-rr-folder"></i> <a>Blender</a>
                     </div>
                 </div>
                 <div class="folder-files">
-                    <div class="folder-data">
+                    <div class="computer-science folder-data ">
                         <img class="computer-science-img" src="resources/images/web-programming.png"
                              alt="Computer Science">
                         <div>
@@ -73,7 +77,7 @@
                             <small>7 elements</small>
                         </div>
                     </div>
-                    <div class="folder-data">
+                    <div class="painting folder-data ">
                         <img class="painting-img" src="resources/images/canvas.png"
                              alt="Painting">
                         <div>
@@ -82,7 +86,7 @@
                             <small>5 elements</small>
                         </div>
                     </div>
-                    <div class="folder-data">
+                    <div class="blender folder-data">
                         <img class="blender-img" src="resources/images/blender.png"
                              alt="Blender">
                         <div>
@@ -92,7 +96,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="computer-science-files">
+                <div id="computer-science-files">
                     <h2>Computer science projects</h2>
                     <details>
                         <summary>Online shop</summary>
@@ -203,7 +207,7 @@
                         </div>
                     </details>
                 </div>
-                <div class="painting-files">
+                <div id="painting-files">
                     <h2>Art projects</h2>
                     <p>Drawing has been a significant passion of mine since I was young. It started with simple doodles
                         and progressed into more complex works of art that capture my emotions and mood. I have always
@@ -230,7 +234,7 @@
                     <img src="resources/images/2_tineri-1-removebg-preview.png" alt="teens">
                     <img src="resources/images/Pergament-clepsidra-1-removebg-preview.png" alt="time">
                 </div>
-                <div class="blender-files">
+                <div id="blender-files">
                     <h2>Blender projects</h2>
                     <p>During high school, I stumbled upon 3D design by accident. I was completely fascinated when I
                         discovered the Blender application and realized how many things you can create with it. I
@@ -293,14 +297,34 @@
             <div class="window-content">
                 <div class="presentations">
                     <h2>Contact</h2>
-                    <p>You can contact me at:</p>
-                    <a href="mailto: stefana.daria.sd@gmail.com">Gmail</a>
                     <br>
-                    <a href="https://github.com/DariaClem" target="_blank">Github</a>
-                    <br>
-                    <a href="https://www.linkedin.com/in/daria-clem/" target="_blank">Linkedin</a>
-                    <br>
-                    <a href="./resources/cv/CV.pdf" download>Download CV</a>
+                    <div class="contact-form f-col-middle">
+                        <div class="email">
+                            <label for="email">Email:</label>
+                            <br>
+                            <input id="email" type="text" value="stefana.daria.sd@gmail.com" readonly>
+                            <a href="mailto: stefana.daria.sd@gmail.com"><i class="fi fi-rr-envelope"></i></a>
+                        </div>
+                        <div class="github">
+                            <label for="github">Github:</label>
+                            <br>
+                            <input id="github" type="text" value="https://github.com/DariaClem" readonly>
+                            <a href="https://github.com/DariaClem" target="_blank"><i
+                                    class="fi fi-brands-github"></i></a>
+                        </div>
+                        <div class="linkedin">
+                            <label for="linkedin">Linkedin:</label>
+                            <br>
+                            <input id="linkedin" type="text" value="https://www.linkedin.com/in/daria-clem/"
+                                   readonly>
+                            <a href="https://www.linkedin.com/in/daria-clem/" target="_blank"><i
+                                    class="fi fi-brands-linkedin"></i></a>
+                        </div>
+                        <div class="cv">
+                            <p>CV: </p>
+                            <a href="./resources/cv/CV.pdf" download>Download CV</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
